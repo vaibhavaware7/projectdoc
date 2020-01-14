@@ -1,0 +1,60 @@
+Anti-Trafficking Portal::
+Technology(Angular + Spring RestFull Web Services + MySql )
+Database Design:
+Tables:
+1: User
+ -uid(integer primary key auto increament)
+ -name(varchar(30))
+ -email(varchar(30))
+ -password(varchar(20))
+ -role(varchar(20))..Enum(ADMIN,NGO,POLICE)
+ -address addr (One to One)
+ -ngo_id(One to One)...NgoInfo Table
+ -pol_id(One to One)..PoliceInfo Table
+ -msgs(One to many( Embedded Collection Type))..Inbox table
+ -photo_id((blob) One To One Photo Table))
+
+2: Victim
+ -appNo(pk)
+ -name(varchar(30))
+ -age(int)
+ -gender(varchar(20))
+ -height(double)
+ -dob(java.util.Date)
+ -Address addr(One to One)
+ -complainant_no(varchar)
+ -missingFrom(Date)
+ -status(Enum..(MISSING,FOUND))
+ -bgroup(varchar)
+ -photo_id((blob) One To One Photo Table))
+ 
+3: NgoInfo
+ -n_id(pk)
+ -ngo_name(varcahr)
+ -Address addr(One To One)..Address Table
+ 
+4: PoliceInfo
+ -dept_id(pk)
+ -name(varchar)
+ -Address addr(One to One )..Address Table
+ 
+5: Address
+ -add_id(pk)
+ -User_id(One to One)..User table  ..foreign key
+ -Victim_id(One to One)..victim table..foreign key
+ -ngo_id(One to One)..ngoInfo table..foreign key
+ -pol_id(One to One)..PoliceInfo table..foreign key
+ -city(varchar)
+ -state(varchar)
+ -country(varchar)
+ -contact(varchar)
+
+6: Photos
+ - id(pk)
+ - img(blob)
+ - uid(..foreign key) user table
+ - v_id(..foreign key) victim table
+
+7:Inbox
+ -u_id(Many to One)..foreign key User Table
+ -msg(clob)
